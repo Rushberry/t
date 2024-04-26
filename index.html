@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Index Page</title>
+</head>
+<body>
+  <h1>Welcome to the Index Page</h1>
+  <p>This is the content of the index page.</p>
+
+  <script>
+    let expirationTime;
+    const currentTime = new Date().getTime();
+
+    // Check if local storage is available
+    if (typeof localStorage !== 'undefined') {
+      expirationTime = localStorage.getItem('expirationTime');
+    } else { // Fallback to cookies if local storage is not available
+      expirationTime = getCookie('expirationTime');
+    }
+
+    if (expirationTime && currentTime <= expirationTime) {
+      // Session is valid
+    } else {
+      window.location.href = 'password.html';
+    }
+
+    // Function to get cookie value by name
+    function getCookie(name) {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim().split('=');
+        if (cookie[0] === name) {
+          return parseInt(cookie[1]);
+        }
+      }
+      return null;
+    }
+  </script>
+</body>
+</html>
